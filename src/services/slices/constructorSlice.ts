@@ -55,9 +55,20 @@ const constructorSlice = createSlice({
       );
     },
     clearConstructor: (state) => {
-      state.bun = null;
-      state.ingredients = [];
       state.orderModalData = null;
+    },
+    moveIngredient: (
+      state,
+      action: PayloadAction<{ index: number; direction: 'up' | 'down' }>
+    ) => {
+      const { index, direction } = action.payload;
+      const newIndex = direction === 'up' ? index - 1 : index + 1;
+      const ingredients = [...state.ingredients];
+      [ingredients[index], ingredients[newIndex]] = [
+        ingredients[newIndex],
+        ingredients[index]
+      ];
+      state.ingredients = ingredients;
     }
   },
   extraReducers: (builder) => {
@@ -77,6 +88,10 @@ const constructorSlice = createSlice({
   }
 });
 
-export const { addIngredient, removeIngredient, clearConstructor } =
-  constructorSlice.actions;
+export const {
+  addIngredient,
+  removeIngredient,
+  clearConstructor,
+  moveIngredient
+} = constructorSlice.actions;
 export default constructorSlice.reducer;
