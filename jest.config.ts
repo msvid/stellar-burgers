@@ -1,5 +1,6 @@
 export default {
   testEnvironment: 'jsdom',
+  testPathIgnorePatterns: ['/node_modules/', '/tests/'],
   transform: {
     '^.+\\.(ts|tsx|js|jsx)$': 'babel-jest'
   },
